@@ -1,0 +1,10 @@
+name: testing-reusable-workflows
+
+on: push
+
+
+jobs:
+  call-workflow-passing-data:
+    uses: coulonxyz/actions_sandbox.git/.github/reusable_workflows/hello_world@main
+    with:
+      username: Julien
