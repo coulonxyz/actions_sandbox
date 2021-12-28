@@ -13,12 +13,8 @@ jobs:
         run: echo "hello from dev"
       - name: Generate Notice Annotations
         run: |
-         text="This is a Notice"
-         echo "::notice {text}"
-      - name: Generate Notice Annotations 2
-        run: |
           text="This is a Notice"
-          echo "::notice::{text}"
+          echo "::notice::${{ text }}"
 
 
   dummy-staging:
