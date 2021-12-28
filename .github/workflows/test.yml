@@ -15,10 +15,14 @@ jobs:
         run: |
          text="This is a Warning"
          echo "::warning file=app.js,line=1,col=5::$text"
-      - name: Generate Warning Annotations
+      - name: Generate Info Annotations 1
         run: |
-          text="This is a Info"
-          echo "::info $text"
+          text="This is an Info"
+          echo "::info file=app.js,line=1,col=5::$text"
+      - name: Generate Info Annotations 2
+        run: |
+          text="This is an other Info"
+          echo "::info ::$text"
 
   dummy-staging:
     environment: staging
