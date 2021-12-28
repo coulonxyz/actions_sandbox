@@ -11,6 +11,15 @@ jobs:
     steps:
       - name: foo
         run: echo "hello from dev"
+      - name: Generate Warning Annotations
+        run: |
+         text="This is a Warning"
+         echo "::warning file=app.js,line=1,col=5::$text"
+      - name: Generate Warning Annotations
+        run: |
+          text="This is a Info"
+          echo "::notice file=app.js,line=1,col=5::$text"
+          echo "::notice $text"
 
   dummy-staging:
     environment: staging
