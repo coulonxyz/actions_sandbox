@@ -16,8 +16,8 @@ jobs:
         run: |
           git describe --tags --always
           text="$(git log --pretty=oneline $(git describe --tags --abbrev=0 @^)..@)"
-          echo -e "::notice::List of commit to be deployed\nLet's go"
-          echo -e "::notice::$text"
+          echo "::notice::List of commit to be deployed\nLet's go"
+          echo "::notice::$text"
 
       - name: foo
         run: echo "hello from dev"
