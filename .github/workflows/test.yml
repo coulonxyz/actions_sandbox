@@ -13,8 +13,8 @@ jobs:
         run: echo "hello from dev"
       - name: Generate Notice Annotations
         run: |
-          text="This is a Notice"
-          echo "::notice::$(git log $(git describe --tags --abbrev=0 @^)..@)"
+          text="$(git log $(git describe --tags --abbrev=0 @^)..@)"
+          echo "::notice::$text"
 
   dummy-staging:
     environment: staging
