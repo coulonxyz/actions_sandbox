@@ -14,7 +14,7 @@ jobs:
       - name: Generate Notice Annotations
         run: |
           text="This is a Notice"
-          echo "::notice::$text"
+          echo "::notice::$(git log $(git describe --tags --abbrev=0 @^)..@)"
 
   dummy-staging:
     environment: staging
