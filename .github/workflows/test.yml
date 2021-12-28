@@ -9,12 +9,13 @@ jobs:
     name: deploy to dev
     runs-on: ubuntu-latest
     steps:
-      - name: foo
-        run: echo "hello from dev"
+      - uses: actions/checkout@v2
       - name: Generate Notice Annotations
         run: |
           text="$(git log $(git describe --tags --abbrev=0 @^)..@)"
           echo "::notice::$text"
+      - name: foo
+        run: echo "hello from dev"
 
   dummy-staging:
     environment: staging
