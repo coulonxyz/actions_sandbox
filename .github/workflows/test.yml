@@ -18,8 +18,7 @@ jobs:
       - name: Generate Warning Annotations
         run: |
           text="This is a Info"
-          echo "::notice file=app.js,line=1,col=5::$text"
-          echo "::notice $text"
+          echo "::info $text"
 
   dummy-staging:
     environment: staging
