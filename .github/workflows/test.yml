@@ -16,8 +16,12 @@ jobs:
         run: |
           git describe --tags --always
           text="$(git log $(git describe --tags --abbrev=0 @^)..@)"
-          echo "::notice::$text"
+          echo -e "::notice::$text"
           echo "::notice::hello there"
+          truc="A\nB\nC"
+          echo "::notice::$truc"
+          echo -e "::notice::$truc"
+
       - name: foo
         run: echo "hello from dev"
 
