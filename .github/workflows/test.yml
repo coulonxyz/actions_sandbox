@@ -23,7 +23,7 @@ jobs:
           echo -e "::notice::$truc"
           while read -r line
           do
-            echo "$line"
+            echo "::notice::$line"
           done < <(truc)
 
       - name: foo
