@@ -16,7 +16,6 @@ jobs:
           text="This is a Notice"
           echo "::notice::$text"
 
-
   dummy-staging:
     environment: staging
     needs: dummy-dev
