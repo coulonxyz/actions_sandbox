@@ -21,6 +21,10 @@ jobs:
           truc="A\nB\nC"
           echo "::notice::$truc"
           echo -e "::notice::$truc"
+          while read -r line
+          do
+            echo "$line"
+          done < <(truc)
 
       - name: foo
         run: echo "hello from dev"
