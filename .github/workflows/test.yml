@@ -4,7 +4,28 @@ on: push
 
 
 jobs:
-  call-workflow-passing-data:
-    uses: coulonxyz/actions_sandbox/.github/workflows/generic_hello_world.yml@main
-    with:
-      username: Julien
+  dummy-dev:
+    environment: dev
+    name: deploy to dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: foo
+        run: echo "hello from dev"
+
+  dummy-staging:
+    environment: staging
+    needs: dummy-dev
+    name: deploy to staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: foo
+        run: echo "hello from staging"
+
+  dummy-production:
+    environment: production
+    needs: dummy-staging
+    name: deploy to production
+    runs-on: ubuntu-latest
+    steps:
+      - name: foo
+        run: echo "hello from production"
