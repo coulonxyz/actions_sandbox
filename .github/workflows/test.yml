@@ -9,6 +9,23 @@ jobs:
     name: deploy to dev
     runs-on: ubuntu-latest
     steps:
+      - name: create string
+        run: |
+          MY_STRING=$(cat << EOF
+          first line
+          second line
+          third line
+          EOF
+          )
+          MY_STRING="${MY_STRING//'%'/'%25'}"
+          MY_STRING="${MY_STRING//$'\n'/'%0A'}"
+          MY_STRING="${MY_STRING//$'\r'/'%0D'}"
+          echo "::set-output name=content::$MY_STRING"
+        id: my_string
+      - name: display string
+        run: |
+          echo "The string is: ${{ steps.my_string.outputs.content }}"
+          echo "::notice::The string is: ${{ steps.my_string.outputs.content }}"
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -21,6 +38,7 @@ jobs:
 
       - name: foo
         run: echo "hello from dev"
+
 
   dummy-staging:
     environment: staging
