@@ -13,7 +13,7 @@ jobs:
       - name: Generate Notice Annotations
         run: |
           git describe --tags --always
-          text="$(git log $(git describe --tags --abbrev=0 @^)..@)"
+          text="$(git log $(git describe --tags --always --abbrev=0 @^)..@)"
           echo "::notice::$text"
           echo "::notice::hello there"
       - name: foo
