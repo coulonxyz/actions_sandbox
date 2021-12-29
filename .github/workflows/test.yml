@@ -23,7 +23,6 @@ jobs:
 
   listing-commit-to-be-deployed-in-staging:
     needs: deploy-to-staging
-    environment: staging
     name: Commit to be deployed in staging
     runs-on: ubuntu-latest
     steps:
