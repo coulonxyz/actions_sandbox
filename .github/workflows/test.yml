@@ -4,31 +4,36 @@ on: push
 
 
 jobs:
-  dummy-dev:
+  deploy-to-dev:
     environment: dev
     name: deploy to dev
     runs-on: ubuntu-latest
     steps:
-
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Generate Notice Annotations
-        run: |
-          filename=temp.log
-          git log --oneline $(git describe --tags --abbrev=0 @^)..@ >> $filename
-          while read line; do
-            echo "::notice::$line"
-          done < $filename
-          rm $filename
-
       - name: foo
         run: echo "hello from dev"
+#
+#  listing-commit-to-be-deployed-in-staging:
+#    needs: deploy-to-dev
+#    environment: dev
+#    name: Commit to be deployed in staging
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 0
+#      - name: Generate Notice Annotations
+#        run: |
+#          filename=temp.log
+#          git log --oneline $(git describe --tags --abbrev=0 @^)..@ >> $filename
+#          while read line; do
+#            echo "::notice::$line"
+#          done < $filename
+#          rm $filename
 
 
   dummy-staging:
+    needs: listing-commit-to-be-deployed-in-staging
     environment: staging
-    needs: dummy-dev
     name: deploy to staging
     runs-on: ubuntu-latest
     steps:
@@ -41,5 +46,14 @@ jobs:
     name: deploy to production
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+
       - name: foo
         run: echo "hello from production"
+
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

@@ -1,0 +1,8 @@
+{
+  "name": "actions_sandbox",
+  "version": "1.0.0",
+  "dependencies": {},
+  "devDependencies": {
+    "@octokit/core": "^3.5.1"
+  }
+}
