@@ -12,9 +12,18 @@ jobs:
       - name: foo
         run: echo "hello from dev"
 
-  listing-commit-to-be-deployed-in-staging:
+  deploy-to-staging:
     needs: deploy-to-dev
-    environment: dev
+    environment: staging
+    name: deploy to staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: foo
+        run: echo "hello from staging"
+
+  listing-commit-to-be-deployed-in-staging:
+    needs: deploy-to-staging
+    environment: staging
     name: Commit to be deployed in staging
     runs-on: ubuntu-latest
     steps:
@@ -30,19 +39,9 @@ jobs:
           done < $filename
           rm $filename
 
-
-  dummy-staging:
-    needs: listing-commit-to-be-deployed-in-staging
-    environment: staging
-    name: deploy to staging
-    runs-on: ubuntu-latest
-    steps:
-      - name: foo
-        run: echo "hello from staging"
-
-  dummy-production:
+  deploy-to-production:
     environment: production
-    needs: dummy-staging
+    needs: listing-commit-to-be-deployed-in-staging
     name: deploy to production
     runs-on: ubuntu-latest
     steps:
