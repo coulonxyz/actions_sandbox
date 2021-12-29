@@ -30,13 +30,10 @@ jobs:
         with:
           fetch-depth: 0
       - name: Generate Notice Annotations
-        run: |
-          filename=temp.log
-          git log --oneline $(git describe --tags --abbrev=0 @^)..@ >> $filename
+        run: |         
           while read line; do
             echo "::notice::$line"
-          done < $filename
-          rm $filename
+          done < <(git log --oneline $(git describe --tags --abbrev=0 @^)..@)
 
   deploy-to-production:
     environment: production
@@ -62,4 +59,4 @@ jobs:
       - name: Bump version and push tag
         uses: anothrNick/github-tag-action@1.36.0
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
